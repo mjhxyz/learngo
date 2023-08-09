@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"math/cmplx"
+)
 
 // 包内部变量，不是全局变量!!!!!
 var aa = 3
@@ -45,10 +49,25 @@ func variableShorter() {
 	fmt.Println(a, b, c, s)
 }
 
+func euler() {
+	// 复数表示
+	fmt.Printf("%.3f\n",
+		cmplx.Pow(math.E, 1i*math.Pi)+1)
+}
+
+func triangle() {
+	var a, b int = 3, 4
+	var c int
+	c = int(math.Sqrt(float64(a*b + b*b)))
+	fmt.Println(c)
+}
+
 func main() {
 	fmt.Println("Hello World")
 	variableZeroValue()
 	variableInitValue()
 	variableTypeDeduction()
 	variableShorter()
+	euler()
+	triangle()
 }

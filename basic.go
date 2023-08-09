@@ -62,6 +62,50 @@ func triangle() {
 	fmt.Println(c)
 }
 
+func consts() {
+	const filename = "abc.txt"
+	const a, b = 3, 4
+	const (
+		filename2 = "dcd.txt"
+		e, f      = 5, 6
+	)
+	var c int
+	// 常量没有说明类型的时候，可以当作字面量
+	c = int(math.Sqrt(a*a + b*b))
+	fmt.Println(filename, c, filename2, e, f)
+}
+
+func enums() {
+	// 没有特殊的关键字，用一组 const 定义表示
+	const (
+		cpp    = 0
+		java   = 1
+		python = 2
+		golang = 3
+	)
+	// 还可以简写
+	const (
+		cpp2 = iota
+		_    // 跳过一个
+		java2
+		python2
+		golang2
+	)
+	// 还有 b, kb, mb, gb, tb, pb
+	// iota 能参与运算
+	const (
+		b = 1 << (10 * iota)
+		kb
+		mb
+		gb
+		tb
+		pb
+	)
+	fmt.Println(cpp, java, python, golang)
+	fmt.Println(cpp2, java2, python2, golang2)
+	fmt.Println(b, kb, mb, gb, tb, pb)
+}
+
 func main() {
 	fmt.Println("Hello World")
 	variableZeroValue()
@@ -70,4 +114,6 @@ func main() {
 	variableShorter()
 	euler()
 	triangle()
+	consts()
+	enums()
 }

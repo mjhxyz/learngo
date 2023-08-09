@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func lengthOfNonRepeatingSubStr(s string) int {
 	chs := []byte(s)
@@ -29,4 +31,6 @@ func main() {
 		lengthOfNonRepeatingSubStr("bbbbbb"),
 		lengthOfNonRepeatingSubStr("pwwkew"),
 	)
+
+	//strings.LastIndex()
 }

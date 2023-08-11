@@ -1,59 +1,28 @@
-package main
+package tree
 
 import "fmt"
 
-type treeNode struct {
-	value       int
-	left, right *treeNode
+type Node struct {
+	Value       int
+	Left, Right *Node
 }
 
-func (node *treeNode) traverse() {
-	if node == nil {
-		return
-	}
-	// 左中右
-	node.left.traverse()
-	node.print()
-	node.right.traverse()
-}
-
-func (node *treeNode) setValue(value int) {
+func (node *Node) SetValue(value int) {
 	// 指针接收者
 	if node == nil {
 		fmt.Println("Setting value to nil node. Ignored.")
 		return
 	}
-	node.value = value
+	node.Value = value
 }
 
-func (node treeNode) print() {
+func (node Node) Print() {
 	// 给结构定义方法
-	fmt.Print(node.value, " ")
+	fmt.Print(node.Value, " ")
 }
 
-func createNode(value int) *treeNode {
+func CreateNode(value int) *Node {
 	// 返回局部变量的地址!!!
 	// 不需要知道
-	return &treeNode{value: value}
-}
-
-func main() {
-
-	// 创建结构体的几种方式
-	var root treeNode
-	root = treeNode{value: 3}
-	root.left = &treeNode{}
-	root.right = &treeNode{5, nil, nil}
-	root.right.left = new(treeNode)
-	root.left.right = createNode(2)
-	root.right.left.setValue(4)
-
-	root.traverse()
-
-	// 使用切片创建
-	//nodes := []treeNode{
-	//	{value: 3},
-	//	{},
-	//	{6, nil, &root},
-	//}
+	return &Node{Value: value}
 }

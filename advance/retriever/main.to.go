@@ -11,13 +11,40 @@ type Retriever interface {
 	Get(url string) string
 }
 
+type Poster interface {
+	Post(url string,
+		form map[string]string) string
+}
+
+const url = "http://z.cn"
+
 func download(r Retriever) string {
-	return r.Get("http://z.cn")
+	return r.Get(url)
+}
+
+func post(p Poster) {
+	p.Post(url,
+		map[string]string{
+			"name": "mao",
+			"lang": "go",
+		})
+}
+
+type RetrieverPoster interface {
+	Retriever
+	Poster
+}
+
+func session(s RetrieverPoster) string {
+	s.Post(url, map[string]string{
+		"contents": "another faked z.cn",
+	})
+	return s.Get(url)
 }
 
 func main() {
 	var r Retriever
-	r = mock.Retriever{Contents: "this is a fake!!!"}
+	mockRetriever := mock.Retriever{Contents: "this is a fake!!!"}
 	inspect(r)
 	r = &real.Retriever{
 		UserAgent: "Mao",
@@ -33,12 +60,16 @@ func main() {
 	} else {
 		fmt.Println("not a mock retriever")
 	}
+
+	fmt.Println("Try a session")
+	fmt.Println(session(&mockRetriever))
+	fmt.Println(&mockRetriever)
 }
 
 func inspect(r Retriever) {
 	fmt.Printf("%T %v\n", r, r)
 	switch v := r.(type) {
-	case mock.Retriever:
+	case *mock.Retriever:
 		fmt.Println("Contents:", v.Contents)
 	case *real.Retriever:
 		fmt.Println("UserAgent:", v.UserAgent)

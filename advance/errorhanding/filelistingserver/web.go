@@ -4,6 +4,7 @@ import (
 	"go.uber.org/zap"
 	"learngo/advance/errorhanding/filelistingserver/filelisting"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 )
 
